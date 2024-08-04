@@ -7,11 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default {
-    mode: 'development',
-    entry: resolve(__dirname, "./src/main.js"),
+    mode: 'development', // 设置为 'development' 或 'production' 或 'none'
+    entry: resolve(__dirname, "../src/main.js"),
     output: {
         filename: "bundle.js",
-        path: resolve(__dirname, "./dist")
+        path: resolve(__dirname, "../dist")
     },
     module: {
         rules: [
@@ -39,7 +39,7 @@ export default {
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: resolve(__dirname, "./public/index.html"),
+            template: resolve(__dirname, "../public/index.html"),
         }),
     ],
 }
