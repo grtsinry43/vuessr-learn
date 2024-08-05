@@ -4,12 +4,13 @@ import {renderToString} from "@vue/server-renderer";
 import fs from "node:fs/promises"; // 使用 promises 版本的 fs 模块
 
 const server = express();
-server.use(express.static('dist', { index: false }));
+server.use(express.static('dist', {index: false}));
 
-server.get("/", async (req, res) => {
+server.get("*", async (req, res) => {
     try {
+        const url = req.url;
         const template = await fs.readFile('public/index.html', 'utf-8');
-        const {app} = createApp();
+        const app = await createApp(url);
         const appContent = await renderToString(app);
         console.log(appContent)
         const html = template.replace('<div id="app"></div>', `<div id="app">${appContent}</div>`);
