@@ -1,7 +1,16 @@
-import {createSSRApp} from "vue";
-import vueApp from "./app.vue";
+// use for ssr env
+import {createSSRApp} from 'vue';
+import App from './app.vue';
+import {createRouter} from './router/index.js';
 
-const app = createSSRApp(vueApp);
-app.mount("#app");
+// createApp receives "isServer" to diff env
+export function createApp({isServer}) {
+    const router = createRouter({isServer});
 
-export default app;
+    const app = createSSRApp(App);
+
+    app.use(router);
+
+    // expose our instance for later render usage
+    return {app, router};
+}

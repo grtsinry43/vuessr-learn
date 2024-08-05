@@ -8,9 +8,11 @@ server.use(express.static('dist', { index: false }));
 
 server.get("/", async (req, res) => {
     try {
+        const url = req.url;
+        console.log(url)
         const template = await fs.readFile('public/index.html', 'utf-8');
         const {app} = createApp();
-        const appContent = await renderToString(app);
+        const appContent = await renderToString(app, {url});
         console.log(appContent)
         const html = template.replace('<div id="app"></div>', `<div id="app">${appContent}</div>`);
         res.end(html);

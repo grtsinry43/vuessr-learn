@@ -11,6 +11,9 @@ const msg = ref('Hello Vue SSR')
     <button class="increase" @click="count++">Increment</button>
     <input class="input" v-model="msg"/>
     <h2 class="msg">{{ msg }}</h2>
+    <RouterView/>
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/about">About</RouterLink>
   </div>
 </template>
 
