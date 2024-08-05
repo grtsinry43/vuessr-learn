@@ -13,6 +13,7 @@ const msg = ref('Hello Vue SSR')
     <h2 class="msg">{{ msg }}</h2>
     <RouterView/>
     <RouterLink to="/">Home</RouterLink>
+    <span>~</span>
     <RouterLink to="/about">About</RouterLink>
   </div>
 </template>

@@ -1,23 +1,36 @@
 import {createApp} from '../main.js';
 
 // context will be injected by our server
-export default async function serverEntry(context) {
+export default function serverEntry(context) {
     console.log('pass server');
-    const {app, router, store, meta} = createApp({isServer: true});
+    const {app, router} = createApp({isServer: true});
+
+    console.log("context:   " + context);
 
     // set server-side router's location
-    router.push(context.url);
+    return router.push(context)
+        .then(() => {
+            console.log("router push success");
+            return router.isReady();
+        })
+        .then(() => {
+            console.log("router is ready");
 
-    // wait for router ready
-    await router.isReady();
+            const matchedComponents = router.currentRoute.value.matched;
+            console.log(router.currentRoute.value);
 
-    const matchedComponents = router.currentRoute.value.matched;
-    // no matched routes, pass with next()
-    if (!matchedComponents.length) {
-        // error 404 or pass to other middleware
-        context.next();
-    }
+            // no matched routes, pass with next()
+            if (!matchedComponents.length) {
+                // error 404 or pass to other middleware
+                throw new Error('No matched routes');
+            }
 
-    // the Promise should resolve to the app instance so it can be rendered
-    return app;
+            // the Promise should resolve to the app instance so it can be rendered
+            console.log(app);
+            return app;
+        })
+        .catch(error => {
+            console.error("Error during server entry:", error);
+            throw error;
+        });
 }

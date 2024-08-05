@@ -1,27 +1,25 @@
 import {createRouter as _createRouter, createWebHistory, createMemoryHistory} from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import AboutView from '../views/AboutView.vue';
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        {
-            path: '/',
-            name: '首页',
-            component: () => import('../views/HomeView.vue'),
-        },
-        {
-            path: '/about',
-            name: '关于',
-            component: () => import('../views/AboutView.vue'),
-        }
-    ]
-})
+const routes = [
+    {
+        path: '/',
+        name: 'Home',
+        component: HomeView,
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: AboutView,
+    },
+];
 
 export function createRouter({isServer}) {
     return _createRouter({
-        // diff from server and client
         history: isServer
-            ? createMemoryHistory()
-            : createWebHistory(),
-        router,
+            ? createMemoryHistory()  // 服务端渲染使用内存历史记录
+            : createWebHistory(),    // 客户端渲染使用浏览器历史记录
+        routes,
     })
-};
+}
