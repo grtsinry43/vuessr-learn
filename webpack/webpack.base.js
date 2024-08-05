@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default {
-    mode: 'production',
+    mode: 'development',
     entry: resolve(__dirname, "./src/main.js"),
     output: {
         filename: "[name].bundle.js",
