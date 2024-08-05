@@ -1,1 +1,0 @@
-export const id=543;export const ids=[543];export const modules={543:(o,t,d)=>{d.r(t),d.d(t,{default:()=>c});var n=d(161);const s={},c=(0,d(262).A)(s,[["ssrRender",function(o,t,d,s){t("<div".concat((0,n.Bq)(s),">关于</div>"))}]])}};

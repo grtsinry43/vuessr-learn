@@ -1,16 +1,14 @@
-// use for ssr env
-import {createSSRApp} from 'vue';
-import App from './app.vue';
-import {createRouter} from './router/index.js';
+import './assets/main.css'
 
-// createApp receives "isServer" to diff env
-export function createApp({isServer}) {
-    const router = createRouter({isServer});
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-    const app = createSSRApp(App);
+import App from './App.vue'
+import router from './router'
 
-    app.use(router);
+const app = createApp(App)
 
-    // expose our instance for later render usage
-    return {app, router};
-}
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')

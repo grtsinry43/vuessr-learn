@@ -1,25 +1,23 @@
-import {createRouter as _createRouter, createWebHistory, createMemoryHistory} from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
-const routes = [
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
     {
-        path: '/',
-        name: 'Home',
-        component: HomeView,
+      path: '/',
+      name: 'home',
+      component: HomeView
     },
     {
-        path: '/about',
-        name: 'About',
-        component: AboutView,
-    },
-];
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue')
+    }
+  ]
+})
 
-export function createRouter({isServer}) {
-    return _createRouter({
-        history: isServer
-            ? createMemoryHistory()  // 服务端渲染使用内存历史记录
-            : createWebHistory(),    // 客户端渲染使用浏览器历史记录
-        routes,
-    })
-}
+export default router
